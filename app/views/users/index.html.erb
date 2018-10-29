@@ -1,0 +1,14 @@
+<h1>This is the homepage</h1>
+
+
+<!-- simple clearance works
+ -->
+
+
+<%@users.each_with_index do |user,index|%>
+  <%=index+1%>. <%=user.email%><br/>
+
+  <!-- YOU HAVE AN ERROR HERE ......TRYING TO DIRECT THE INFIVIDUAL ID TO INDIVIDUAL SHOW PAGE ...DOESNT WORK
+   -->
+    <%=link_to 'View',user_path(user)%><br/>
+<%end%>
