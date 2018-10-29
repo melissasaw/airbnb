@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_29_111100) do
+ActiveRecord::Schema.define(version: 2018_10_29_113000) do
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -20,7 +20,11 @@ ActiveRecord::Schema.define(version: 2018_10_29_111100) do
     t.string "confirmation_token", limit: 128
     t.string "remember_token", limit: 128
     t.string "username"
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email"
+    t.index ["first_name"], name: "index_users_on_first_name"
+    t.index ["last_name"], name: "index_users_on_last_name"
     t.index ["remember_token"], name: "index_users_on_remember_token"
     t.index ["username"], name: "index_users_on_username"
   end
