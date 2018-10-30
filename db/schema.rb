@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_29_113001) do
+ActiveRecord::Schema.define(version: 2018_10_30_121600) do
 
   create_table "authentications", force: :cascade do |t|
     t.string "uid"
@@ -20,6 +20,23 @@ ActiveRecord::Schema.define(version: 2018_10_29_113001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_authentications_on_user_id"
+  end
+
+  create_table "listings", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "occupant"
+    t.float "price"
+    t.binary "images"
+    t.boolean "pet"
+    t.boolean "smoker"
+    t.integer "rooms"
+    t.integer "toilets"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "city"
+    t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

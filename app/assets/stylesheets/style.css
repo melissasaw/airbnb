@@ -1,9 +1,9 @@
 .container{
-	background-color: lightblue;
+	padding-top: 20px;
 }
 
 .container-fluid{
-	background-color: lightblue;
+
 }
 
 .sign-out-button{
@@ -18,7 +18,6 @@
 
 #header
 {
-
 	background-color: lightblue;
 	height: 45px;
 	padding:8px;
@@ -29,4 +28,35 @@
 .logo
 {
 	float: left;
+}
+
+.float-left
+{
+	float: left;
+}
+
+.float-right
+{
+	float: right;
+}
+
+.top-margin
+{
+	margin-top: 20px;
+}
+
+.thin-border-box
+{
+	border:1px solid lightgrey;
+	padding:20px;
+}
+
+.align-right
+{
+	text-align: right;
+}
+
+.align-center
+{
+	text-align: center;
 }

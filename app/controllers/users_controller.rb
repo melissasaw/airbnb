@@ -7,9 +7,11 @@ class UsersController < Clearance::UsersController
 	def index
 
 		@users = User.all
+		@listings=Listing.all
 	end
 
 	def show
+		@listings=Listing.all
 	end
 
 	def edit
@@ -29,8 +31,6 @@ class UsersController < Clearance::UsersController
 		# takes us to the root
 		redirect_to root_path
 	end
-
-
 
 	# def create
 	# 	byebug

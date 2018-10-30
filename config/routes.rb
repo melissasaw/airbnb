@@ -18,6 +18,7 @@ Clearance.configure do |config|
 end
 
 resources :users, only: [:update, :show, :edit, :index, :destroy]
+resources :listings
 
 # get '/users/:id', to: 'users#show',  as: 'user'
 

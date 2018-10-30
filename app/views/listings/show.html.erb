@@ -1,0 +1,57 @@
+
+<div class = "container">
+	<h2><%=@listing.title%></h2>
+	<p><%=@listing.city%></p>
+
+	<div class="container">
+	<p>MYR <%=@listing.price%>/night</p>
+	</div>
+
+	<div class = "container thin-border-box">
+		<table style="width:100%">
+		<tr>
+			<td><strong>Description</strong><br/><%=@listing.description%><td>
+		</tr>	
+		<tr>
+			<td><strong>Occupants</strong><br/><%=@listing.occupant%></td>
+			<td><strong>Rooms</strong><br/><%=@listing.rooms%></td>
+			<td><strong>Toilets</strong><br/><%=@listing.toilets%></td>
+		</tr>
+		<tr>
+			<td><strong>Pet Friendly</strong><br/>
+				<%if @listing.pet%>
+				Yes
+				<%else%>
+				No
+				<%end%>
+			</td>
+			<td><strong>Smoking within Premise</strong><br/>
+				<%if @listing.smoker%>
+				Yes
+				<%else%>
+				No
+				<%end%>
+			</td>	
+		</tr>
+
+	</table>
+	</div>
+
+
+	<div class ="container thin-border-box top-margin">
+		<h4>Contact Host</h4>
+		<table style="width:100%">
+			<tr>
+				<td>Name: <%=@listing.user.first_name%></td>
+			</tr>
+			<tr>
+				<td>Email: <%=@listing.user.email%></td>
+			</tr>
+		</table>
+		
+	</div>
+
+
+
+
+</div>

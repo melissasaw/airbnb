@@ -1,20 +1,61 @@
-<h2>Hello <%=@user.first_name%></h2>
 
-<div class ="container">
-	<h3>Your information</h3>
+<!-- Create Listing -->
+<div class="container align-right">
+	<%=link_to 'Home' ,root_path%>
+</div>	
+
+<!-- Edit User -->
+<div class ="container align-center">
+	<h2>Hello <%=@user.first_name%></h2>
 	First Name: <%=@user.first_name%><br/>
 	Last Name: <%=@user.last_name%><br/>
 	Username: <%=@user.username%><br/>
 	Registered Email: <%=@user.email%><br/>
 
 	<%if @user.id == current_user.id%>
-		<%=link_to 'Edit' ,edit_user_path(current_user)%>
+		<span><%=link_to 'Edit' ,edit_user_path(current_user)%></span>
 		<%=link_to 'Delete', user_path(current_user), method: :delete, data: {confirm: "Are you sure you want to delete user?"} %>
 	<%end%>
 
-	<div>
-		<%=link_to 'Home' ,root_path%>
-	</div>	
+</div>
+
+<hr/>
+
+<!-- Display User Listing -->
+
+<div class ="container">
+
+	<h4>Your listings</h4>
+	<div class = "container">
+		<%=link_to 'Create' ,new_listing_path%>
+	</div>
+
+	<br/><br/>
+	<table style ="width:100%">
+		<tr>
+			<td><u>Title</u></td>
+			<td><span class = "float-right"><u>Last modified</u></span></td>
+		</tr>
+	</table>
+	<br/>
+	
+	<%@listings.each do |l|%>
+		<%if l.user.id == current_user.id%>
+			<table style="width:100%">
+			<h5><%=l.title%><br/></h5>
+			<tr>
+				<td><%=l.description%><td>
+			</tr>
+			<tr>
+				<td><%=link_to 'Edit', edit_listing_path(l)%></td>
+				<td><span class ="float-right"><%=l.updated_at%></span></td>
+			</tr>
+			</table>
+			<hr/>
+
+		<%end%>
+	<%end%>
+</div>
 
 
 </div>

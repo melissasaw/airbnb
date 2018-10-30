@@ -2,18 +2,44 @@
 
 <div class ="homepage container">
 
-<h2>Welcome</h2>
+<h2>Welcome to Homepage</h2>
 
+	<div>
+		<%=link_to 'Profile Page',user_path(current_user)%><br/>
+	</div>
 
- <%=link_to 'Profile Page',user_path(current_user)%><br/>
+	<div>
+		<!-- Shows all the users and respective postings -->
+		<%@users.each_with_index do |user,index|%>
+			<%=index+1%>. <%=user.email%><br/>
+			<%=link_to 'View',user_path(user)%><br/>
+		<%end%>
+	</div>
 
-<!-- Shows all the users and respective postings -->
-<%@users.each_with_index do |user,index|%>
-  <%=index+1%>. <%=user.email%><br/>
+	<div>
+		<!-- Shows all the listing if there is any -->
+		<hr/>
+		<%if @listings.length >0%>
+			<!-- put this in a list in the future -->
+			<h3>Find your next holiday home</h3>
 
-  <!-- YOU HAVE AN ERROR HERE ......TRYING TO DIRECT THE INFIVIDUAL ID TO INDIVIDUAL SHOW PAGE ...DOESNT WORK
-   -->
-    <%=link_to 'View',user_path(user)%><br/>
-<%end%>
+			<%@listings.each_with_index do |l,i|%>
+			<hr/>
+
+				<table style="width:100%">
+					<h4><%="#{l.title}"%></h4>
+					<span class="float-right"><strong>Host:</strong><%=l.user.username%></span>
+					<tr>
+						<td><strong>Description</strong><br/><%=l.description%></td>
+						<td><strong>Price</strong><br/><%=l.price%></td>
+						<td><span class="float-right"><%=link_to 'View', listing_path(l.id)%></span></td>
+					</tr>		
+				</table>
+			<%end%>
+		<%else%>
+		<p>Sorry. No listing at the moment!</p>
+		<%end%>
+		<hr/>
+	</div>
 
 </div>

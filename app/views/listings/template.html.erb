@@ -1,0 +1,70 @@
+<!-- This is the rails simple form -->
+<div class="text-field">
+  <%= form.label :title %>
+  <%= form.text_field :title, type: 'title' %>
+</div>
+
+<div class="text-field">
+  <%= form.label :description %>
+  <%= form.text_field :description, type: 'description' %>
+</div>
+
+<div class="text-field">
+  <%= form.label :city %>
+  <%= form.text_field :city, type: 'city'%>
+</div>
+
+<div class="text-field">
+  <%= form.label :occupant %>
+  <%= form.text_field :occupant, type: 'occupant' %>
+</div>
+
+<div class="text-field">
+  <%= form.label :rooms %>
+  <%= form.text_field :rooms, type: 'rooms'%>
+</div>
+
+<div class="text-field">
+  <%= form.label :toilets %>
+  <%= form.text_field :toilets, type: 'toilets'%>
+</div>
+
+<div class="text-field">
+  <%= form.label :pet %>
+  <%= form.text_field :pet, type: 'pet'%>
+</div>
+
+<div class="password-field">
+  <%= form.label :smoker %>
+  <%= form.password_field :smoker, type: 'smoker'%>
+</div>
+
+<div class="text-field">
+  <%= form.label :price %>
+  <%= form.text_field :price, type: 'price' %>
+</div>
+
+<!-- This is the boostrap form template -->
+<form>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type= 'text' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title" name = "title">
+    <small id="emailHelp" class="form-text text-muted">A short & attractive title increases your chances of getting a booking.</small>
+  </div>
+  <div class="form-group">
+    <label for="description" >Description</label>
+    <input type= 'text' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Description" name="description">
+    <small id="emailHelp" class="form-text text-muted">Let others know more about your property.</small>
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter Price" name="price">
+  </div>
+</form>
+
+
+<!-- This is the submit button -->
+  <div class="submit-field">
+    <%= form.submit %>
+  </div>
+
