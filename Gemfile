@@ -67,4 +67,7 @@ gem 'clearance'
 # Protecting privacy, so passwords are not uploaded to github
 gem "figaro"
 
+# Google login 
+gem "omniauth"
+gem "omniauth-google-oauth2"
 

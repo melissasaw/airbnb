@@ -1,0 +1,32 @@
+.container{
+	background-color: lightblue;
+}
+
+.container-fluid{
+	background-color: lightblue;
+}
+
+.sign-out-button{
+	float: right;
+	display: inline-block;
+}
+
+.homepage
+{
+	margin-top: 50px;
+}
+
+#header
+{
+
+	background-color: lightblue;
+	height: 45px;
+	padding:8px;
+	padding-right: 10px;
+	padding-left:30px;
+}
+
+.logo
+{
+	float: left;
+}

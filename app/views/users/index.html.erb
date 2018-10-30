@@ -1,10 +1,13 @@
-<h1>This is the homepage</h1>
 
 
-<!-- simple clearance works
- -->
+<div class ="homepage container">
+
+<h2>Welcome</h2>
 
 
+ <%=link_to 'Profile Page',user_path(current_user)%><br/>
+
+<!-- Shows all the users and respective postings -->
 <%@users.each_with_index do |user,index|%>
   <%=index+1%>. <%=user.email%><br/>
 
@@ -12,3 +15,5 @@
    -->
     <%=link_to 'View',user_path(user)%><br/>
 <%end%>
+
+</div>

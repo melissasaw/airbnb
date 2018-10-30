@@ -1,6 +1,21 @@
-<h1>This page shows everything</h1>
+<h2>Hello <%=@user.first_name%></h2>
 
-<div>
-	Email: <%=@user.email%><br/>
+<div class ="container">
+	<h3>Your information</h3>
+	First Name: <%=@user.first_name%><br/>
+	Last Name: <%=@user.last_name%><br/>
+	Username: <%=@user.username%><br/>
+	Registered Email: <%=@user.email%><br/>
+
+	<%if @user.id == current_user.id%>
+		<%=link_to 'Edit' ,edit_user_path(current_user)%>
+		<%=link_to 'Delete', user_path(current_user), method: :delete, data: {confirm: "Are you sure you want to delete user?"} %>
+	<%end%>
+
+	<div>
+		<%=link_to 'Home' ,root_path%>
+	</div>	
+
+
 </div>
 
