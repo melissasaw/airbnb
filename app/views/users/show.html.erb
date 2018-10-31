@@ -12,7 +12,7 @@
 	Username: <%=@user.username%><br/>
 	Registered Email: <%=@user.email%><br/>
 
-	<%if @user.id == current_user.id%>
+	<%if @user == current_user%>
 		<span><%=link_to 'Edit' ,edit_user_path(current_user)%></span>
 		<%=link_to 'Delete', user_path(current_user), method: :delete, data: {confirm: "Are you sure you want to delete user?"} %>
 	<%end%>

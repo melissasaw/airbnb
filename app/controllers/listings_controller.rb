@@ -37,6 +37,18 @@ class ListingsController < ApplicationController
 		redirect_to user_path(current_user)
 	end
 
+
+	def search
+		# take params and use it to find the list of properties
+		
+		@filtered_listings = Listing.where(search_params)
+
+		# display it on indexpage -link it there
+		
+		# this involves redirect_to
+
+	end
+
 private
 
 	def find_listing
@@ -45,6 +57,10 @@ private
 
 	def listing_params
 		params.permit(:title,:description,:occupant,:city,:rooms,:toilets,:pet,:smoker,:price)
+	end
+
+	def search_params
+		params.permit(:country,:occupant,:pet,:place_type)
 	end
 
 end

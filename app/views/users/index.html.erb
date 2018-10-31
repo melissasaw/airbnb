@@ -4,42 +4,87 @@
 
 <h2>Welcome to Homepage</h2>
 
-	<div>
-		<%=link_to 'Profile Page',user_path(current_user)%><br/>
-	</div>
+<div class = "">
+	<%=link_to 'Profile Page',user_path(current_user)%><br/>
+</div>
+<div class="">
+	<%=link_to 'User List',url: "/users/alluser"%><br/>
+</div>
 
-	<div>
-		<!-- Shows all the users and respective postings -->
-		<%@users.each_with_index do |user,index|%>
-			<%=index+1%>. <%=user.email%><br/>
-			<%=link_to 'View',user_path(user)%><br/>
-		<%end%>
-	</div>
+<!-- Search Form -->
+<!-- COME BACK AND FIGURE OUT WHY FILTERS ARE NOT COMPLETE -->
+<div class="container extra-padding">
 
-	<div>
-		<!-- Shows all the listing if there is any -->
+	<h4>Search for properties.</h4>
+	<br/>
+	<!-- This is a ruby form -->
+	<%= form_tag("/listings/search", method: "get") do %>
+	<table style="width:60%">
+		<tr>
+			<td><%= label_tag(:country, "Country:") %></td>
+			<td><%= text_field_tag(:country) %></td>
+		</tr>
+		<tr>
+			<td><%= label_tag(:occupant, "Number of Occupants:") %></td>
+			<td><%= text_field_tag(:occupant) %></td>
+		</tr>
+
+		<tr>
+			<td>Filters: </td>
+			<td><%= check_box_tag(:pet,value = true) %>
+			<%= label_tag(:pet, "Pet Friendly") %></td>
+			<td><%= check_box_tag(:smoker,value = true) %>
+				<%= label_tag(:smoker, "Smokers") %></td>
+		</tr>
+
+		<tr>
+			<td>Type: </td>
+			<td><%= radio_button_tag(:place_type,value = "1") %>
+			<%= label_tag(:place_type, "Entire Flat") %></td>
+			<td><%= radio_button_tag(:place_type,value = "2") %>
+			<%= label_tag(:place_type, "Private Room") %></td>
+			<td><%= radio_button_tag(:place_type,value = "3") %>
+			<%= label_tag(:place_type, "Shared Room") %></td>
+
+		</tr>
+	</table>
+		<%= submit_tag("Search") %>
+	<% end %>
+
+
+</div>
+
+<!-- Shows all the listing if there is any -->
+<div>
+	<hr/>
+	<%if @listings.length >0%>
+		<!-- put this in a list in the future -->
+		<h3>Find your next holiday home</h3>
+
+		<%@listings.each_with_index do |l,i|%>
 		<hr/>
-		<%if @listings.length >0%>
-			<!-- put this in a list in the future -->
-			<h3>Find your next holiday home</h3>
 
-			<%@listings.each_with_index do |l,i|%>
-			<hr/>
-
-				<table style="width:100%">
-					<h4><%="#{l.title}"%></h4>
-					<span class="float-right"><strong>Host:</strong><%=l.user.username%></span>
-					<tr>
-						<td><strong>Description</strong><br/><%=l.description%></td>
-						<td><strong>Price</strong><br/><%=l.price%></td>
-						<td><span class="float-right"><%=link_to 'View', listing_path(l.id)%></span></td>
-					</tr>		
-				</table>
-			<%end%>
-		<%else%>
-		<p>Sorry. No listing at the moment!</p>
+			<table style="width:100%">
+				<h4><%="#{l.title}"%></h4>
+				<span class="float-right"><strong>Host:</strong>
+					<%if l.user.username != nil%>
+						<%=l.user.username%>
+					<%else%>
+						nil
+					<%end%>
+				</span>
+				<tr>
+					<td><strong>Description</strong><br/><%=l.description%></td>
+					<td><strong>Price</strong><br/>MYR <%=l.price%>/night</td>
+					<td><span class="float-right"><%=link_to 'View', listing_path(l.id)%></span></td>
+				</tr>		
+			</table>
 		<%end%>
-		<hr/>
-	</div>
+	<%else%>
+	<p>Sorry. No listing at the moment!</p>
+	<%end%>
+	<hr/>
+	<%= paginate @listings%>
+</div>
 
 </div>

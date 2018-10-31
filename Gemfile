@@ -71,3 +71,8 @@ gem "figaro"
 gem "omniauth"
 gem "omniauth-google-oauth2"
 
+# Faker to seed fake data
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+
+# Paginator 
+gem 'kaminari'

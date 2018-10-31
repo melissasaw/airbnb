@@ -17,6 +17,8 @@ Clearance.configure do |config|
   config.routes = false
 end
 
+get "/listings/search"
+get "/users/alluser"
 resources :users, only: [:update, :show, :edit, :index, :destroy]
 resources :listings
 

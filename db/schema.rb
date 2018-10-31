@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_121600) do
+ActiveRecord::Schema.define(version: 2018_10_31_143300) do
 
   create_table "authentications", force: :cascade do |t|
     t.string "uid"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 2018_10_30_121600) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "city"
+    t.integer "place_type"
+    t.string "property_type"
+    t.integer "bed_number"
+    t.string "country"
+    t.string "state"
+    t.string "zipcode"
+    t.string "address"
+    t.boolean "verification"
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
@@ -49,6 +57,9 @@ ActiveRecord::Schema.define(version: 2018_10_30_121600) do
     t.string "username"
     t.string "first_name"
     t.string "last_name"
+    t.boolean "customer"
+    t.boolean "moderator"
+    t.boolean "superadmin"
     t.index ["email"], name: "index_users_on_email"
     t.index ["first_name"], name: "index_users_on_first_name"
     t.index ["last_name"], name: "index_users_on_last_name"

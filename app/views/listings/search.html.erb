@@ -1,0 +1,33 @@
+
+<div class="container">
+
+	<div class="container align-right">
+		<%=link_to 'Home' ,root_path%>
+	</div>	
+
+	<!-- Display filtered listings -->
+	<div class="container">
+		<h4>Found <%=@filtered_listings.length%> Listing(s)</h4>
+		<%if @filtered_listings.length<=0%>
+			<h4>Sorry, no listings found.</h4>
+		<%else%>
+			<br/>
+			<%@filtered_listings.each do |f|%>
+				<table style="width:100%">
+					<h4><%="#{f.title}"%></h4>
+					<span class="float-right"><strong>Host:</strong><%=f.user.username%></span>
+					<tr>
+						<td><strong>Description</strong><br/><%=f.description%></td>
+						<td><strong>Price</strong><br/>MYR <%=f.price%>/night</td>
+					</tr>	
+					<tr>
+						<td><span class="align-right"><%=link_to 'View', listing_path(f.id)%></span></td>
+					</tr>	
+				</table>
+				<hr/>
+			<%end%>
+		<%end%>
+	</div>
+	
+
+</div>

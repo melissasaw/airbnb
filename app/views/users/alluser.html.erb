@@ -1,0 +1,16 @@
+
+<h2>List of all Users</h2>
+
+<div class = "container">
+	<div class ="button-box">
+		<%=link_to 'Home',root_path%><br/>
+	</div>
+
+	<div>
+		<!-- Shows all the users and respective postings -->
+		<%@users.each_with_index do |user,index|%>
+			<%=index+1%>. <%=user.email%><br/>
+			<%=link_to 'View',user_path(user)%><br/>
+		<%end%>
+	</div>
+</div>

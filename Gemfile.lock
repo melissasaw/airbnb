@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/stympy/faker.git
+  revision: 723d7807516a425daead8f5e01e74b99515c0d1c
+  branch: master
+  specs:
+    faker (1.9.1)
+      i18n (>= 0.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -98,6 +106,18 @@ GEM
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
     jwt (2.1.0)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -231,8 +251,10 @@ DEPENDENCIES
   chromedriver-helper
   clearance
   coffee-rails (~> 4.2)
+  faker!
   figaro
   jbuilder (~> 2.5)
+  kaminari
   listen (>= 3.0.5, < 3.2)
   omniauth
   omniauth-google-oauth2

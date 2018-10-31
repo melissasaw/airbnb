@@ -1,13 +1,13 @@
 class UsersController < Clearance::UsersController
 
-
+	
 	before_action :require_login, only: [:index,:show]
 	before_action :find_user, only: [:show,:edit,:update,:destroy]
 
 	def index
-
 		@users = User.all
 		@listings=Listing.all
+		@listings = Listing.order(:title).page params[:page]
 	end
 
 	def show
@@ -31,6 +31,11 @@ class UsersController < Clearance::UsersController
 		# takes us to the root
 		redirect_to root_path
 	end
+
+	def alluser
+		@users=User.all
+	end
+
 
 	# def create
 	# 	byebug
@@ -69,4 +74,6 @@ class UsersController < Clearance::UsersController
 	def user_params
 		params.require(:user).permit(:first_name,:last_name,:password,:username,:email)
 	end
+
+
 end
