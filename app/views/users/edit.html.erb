@@ -1,11 +1,12 @@
 <h2>Hello. Edit your profile :)</h2>
 
 
-<%=form_with scope: @user,url: user_path, method: "put" do |f|%>
+<%=form_with scope: @user, html: {multiport:true}, url: user_path, method: "put" do |f|%>
 	First Name: <%=f.text_field :first_name%><br/>
 	Last Name: <%=f.text_field :last_name%><br/>
 	Username: <%=f.text_field :username%><br/>
 	Email: <%=f.text_field :email%><br/>
+	Profile Picture: <%=f.file_field :avatar%>
 	<%=f.submit%>
 <%end%>
 

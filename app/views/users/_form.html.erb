@@ -1,26 +1,45 @@
-<div class="text-field">
-  <%= form.label :first_name %>
-  <%= form.text_field :first_name, type: 'first_name' %>
-</div>
 
-<div class="text-field">
-  <%= form.label :last_name %>
-  <%= form.text_field :last_name, type: 'last_name' %>
-</div>
+<div class= "container">
 
-<div class="text-field">
-  <%= form.label :username %>
-  <%= form.text_field :username, type: 'username' %>
-</div>
+  <div class="form-group">
+    <label for="first_name">First Name</label>
+    <%= form.text_field :first_name, class: 'form-control', placeholder: 'Enter First Name' %>
+  </div>
 
-<div class="text-field">
-  <%= form.label :email %>
-  <%= form.text_field :email, type: 'email' %>
-</div>
+  <div class="form-group">
+    <label for="last_name" >Last Name</label>
+    <%= form.text_field :last_name, class: 'form-control', placeholder: 'Enter Last Name' %>
+  </div>
 
-<div class="password-field">
-  <%= form.label :password %>
-  <%= form.password_field :password %>
-</div>
+    <div class="form-group top-margin">
+    <label for="username">Username</label>
+    <%= form.text_field :username, class: 'form-control', placeholder: 'Enter Username' %>
+  </div>
 
-<!--  -->
+  <div class="form-group top-margin">
+    <label for="email">Email</label>
+    <%= form.text_field :email, class: 'form-control', placeholder: 'Email' %>
+  </div>
+
+  <div class="form-group top-margin">
+    <label for="password">Password</label>
+    <%= form.text_field :password, class: 'form-control', placeholder: 'Enter Password' %>
+  </div>
+
+  <div class ="form-group top-margin">
+    <label for="customer">Account Type</label>
+    <div class="form-check">
+    <input class="form-check-input" type="radio" name="user[customer]" value=true checked>
+    <label class="form-check-label" for="pet">
+      Customer
+    </label>
+    </div>
+  </div>
+
+  <div class="form-group top-margin">
+    <label for="picture">Profile Picture</label>
+    <%= form.file_field :avatar, class: 'form-control', placeholder: 'Upload Profile Picture' %>
+  </div>
+
+
+</div>

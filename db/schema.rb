@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_31_143300) do
+ActiveRecord::Schema.define(version: 2018_11_02_040656) do
 
   create_table "authentications", force: :cascade do |t|
     t.string "uid"
@@ -44,7 +44,20 @@ ActiveRecord::Schema.define(version: 2018_10_31_143300) do
     t.string "zipcode"
     t.string "address"
     t.boolean "verification"
+    t.json "avatars"
     t.index ["user_id"], name: "index_listings_on_user_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.date "check_in"
+    t.date "check_out"
+    t.binary "instant_book"
+    t.integer "user_id"
+    t.integer "listing_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_reservations_on_listing_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,6 +73,7 @@ ActiveRecord::Schema.define(version: 2018_10_31_143300) do
     t.boolean "customer"
     t.boolean "moderator"
     t.boolean "superadmin"
+    t.string "avatar"
     t.index ["email"], name: "index_users_on_email"
     t.index ["first_name"], name: "index_users_on_first_name"
     t.index ["last_name"], name: "index_users_on_last_name"

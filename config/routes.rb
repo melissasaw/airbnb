@@ -19,9 +19,10 @@ end
 
 get "/listings/search"
 get "/users/alluser"
+post "/listings/:id/verify", to: 'listings#verify', as: 'listings_verify'
 resources :users, only: [:update, :show, :edit, :index, :destroy]
 resources :listings
-
+resources :reservations
 # get '/users/:id', to: 'users#show',  as: 'user'
 
 # get '/users/:id/edit', to: 'users#edit',  as: 'edit_user'

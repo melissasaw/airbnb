@@ -7,26 +7,49 @@
 
 	<!-- Display filtered listings -->
 	<div class="container">
-		<h4>Found <%=@filtered_listings.length%> Listing(s)</h4>
+		<h4>Filter for <%=@city%>, ranging from <%=@check_in%> to <%=@check_out%></h4>
+		<h4>Found <%=@filtered_listings_length%> Listing(s)</h4>
 		<%if @filtered_listings.length<=0%>
 			<h4>Sorry, no listings found.</h4>
 		<%else%>
 			<br/>
-			<%@filtered_listings.each do |f|%>
-				<table style="width:100%">
-					<h4><%="#{f.title}"%></h4>
-					<span class="float-right"><strong>Host:</strong><%=f.user.username%></span>
-					<tr>
-						<td><strong>Description</strong><br/><%=f.description%></td>
-						<td><strong>Price</strong><br/>MYR <%=f.price%>/night</td>
-					</tr>	
-					<tr>
-						<td><span class="align-right"><%=link_to 'View', listing_path(f.id)%></span></td>
-					</tr>	
-				</table>
-				<hr/>
+
+			<%@filtered_listings.each do |l|%>
+			<hr/>
+
+			<table style="width:100%">
+				<col width=60%>
+				<col width=20%>
+				<col width=20%>
+				<span class="title-text"><%="#{l.title}"%></span>
+				<%if l.verification == true%>
+					✅	
+				<%end%>
+				<span class="float-right"><strong>Host:</strong>
+					<%if l.user.username != nil%>
+						<%=l.user.username%>
+					<%else%>
+						nil
+					<%end%>
+				</span>
+				<tr>
+					<td><strong>Description</strong><br/><%=l.description%></td>
+					<td><strong>Price</strong><br/>MYR <%=l.price%>/night</td>
+					<td><span class="float-right"><%=link_to 'View', listing_path(l.id, :check_in => "#{@check_in}", :check_out => "#{@check_out}")%></span></td>
+				</tr>
+				<tr>
+					<%if l.avatars.length>0%>
+					<td><%=image_tag l.avatars[0].url,:size => "260x180", :crop => :fill%></td>
+					<%else%>
+						<td><%=image_tag "stanleywithbone.JPG", :size => "260x180", :crop => :fill%></td>
+					<%end%>
+				</tr>		
+			</table>
+
 			<%end%>
+		<%= paginate @filtered_listings%>
 		<%end%>
+
 	</div>
 	
 

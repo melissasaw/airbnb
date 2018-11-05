@@ -1,0 +1,94 @@
+
+<div class="container">
+
+	<div class="container align-right">
+		<%=link_to 'Home' ,root_path%>
+	</div>	
+
+	<div class = "container">
+		<h2>Booking Confirmed</h2>
+		<p>on <%=@reservation.created_at%></p>
+	</div>
+
+	<div class= "container">
+		<table style="width:30%" class = "thin-border-box">
+			<tr>
+				<td>Check-in Date :</td>
+				<td><%=@check_in%></td>
+			</tr>
+			<tr>
+				<td>Check-out Date :</td>
+				<td><%=@check_out%></td>
+			</tr>
+
+		</table>
+	</div>
+
+	<div class = "container thin-border-box top-margin">
+		<%listing=Listing.find(@listing_id)%>
+		<h3><%=listing.title%></h2>
+		<p><%="#{listing.city}, #{listing.state}, #{listing.country}"%></p>
+
+		<table style="width:100%">
+			<col width=33%>
+			<col width=33%>
+			<col width=33%>
+		<tr>
+			<td><strong>Description</strong><br/><%=listing.description%><td>
+			<td><strong>Occupants</strong><br/><%=listing.occupant%></td>
+		</tr>	
+		<tr>
+			<td><strong>No. of Beds</strong><br/><%=listing.bed_number%></td>
+			<td><strong>Rooms</strong><br/><%=listing.rooms%></td>
+			<td><strong>Toilets</strong><br/><%=listing.toilets%></td>
+		</tr>
+		<tr>
+			<td><strong>Pet Friendly</strong><br/>
+				<%if listing.pet%>
+				Yes
+				<%else%>
+				No
+				<%end%>
+			</td>
+			<td><strong>Smoking Allowed</strong><br/>
+				<%if listing.smoker%>
+				Yes
+				<%else%>
+				No
+				<%end%>
+			</td>	
+		</tr>
+
+		</table>
+	</div>
+
+	<div class= "container top-margin thin-border-box">
+		<!--Count the number of days between check in and check out dates  -->
+		<!-- make sure that the dates are converted to date form and do subtraction -->
+		<%days = (@check_out.to_date-@check_in.to_date).to_i%>
+		<%nights = days - 1%>
+		<table style="width:100%">
+			<tr>
+				<td><span class = "title-text">Total Amount</span></td>
+				<td><span class = "title-text">MYR <%=listing.price*nights%></span></td>
+			</tr> 
+			<tr>
+				<td>Duration :</td>
+				<td><strong><%=days%> day(s) <%=nights%> night(s)</strong></td>
+			</tr>
+			<tr>
+				<td>Price/Night :</td>
+				<td><strong><%=listing.price%></strong></td>
+			</tr>
+			
+		</table>
+	</div>
+
+	<div class= "container thin-border-box top-margin align-center lightgrey-background">
+		<%= link_to 'Cancel Booking',reservation_path(@reservation), method: :delete, data: {confirm:"Are you sure you want to cancel reservation?"}%>
+
+	</div>
+
+	<div class= "container">
+		<span class = "button-box float-right"><%= link_to 'Done',user_path(current_user)%></span>
+	</div>

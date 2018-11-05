@@ -2,6 +2,7 @@
 
 <div class ="homepage container">
 
+
 <h2>Welcome to Homepage</h2>
 
 <div class = "">
@@ -11,19 +12,81 @@
 	<%=link_to 'User List',url: "/users/alluser"%><br/>
 </div>
 
+<div class ="align-center top-margin">
+	<p><strong>Cities with our properties</strong></p>
+	<%city_arr= []%>
+	<%@listings.each do |l|%>
+		<%=l.city%>
+		<%city_arr.push(l.city)%><%="|"%>
+	<%end%> 
+</div>
+
+
+
+<!-- Search with dates and cities -->
+<div class="container extra-padding thin-border-box top-margin">
+	<%= form_tag("/listings/search", method: "get") do %>
+		
+
+		<table style="width:60%" class ="top-margin">
+			<%= label_tag(:city, "City") %>
+			<select name ="city" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+
+				<option selected>Select City...</option>
+				<!--Finding all countries in database  -->
+					<%city_arr= []%>
+					<%@listings.each do |l|%>
+						<%=l.city%>
+						<%city_arr.push(l.city)%>
+					<%end%>
+				<!-- Display all countries in db as options -->
+					<%city_arr.each do |city|%>
+						<option value="<%=city%>"><%=city%></option>
+					<%end%>
+			</select>
+
+			<tr>
+				<td><%= label_tag(:check_in, "Check In") %></td>
+				<td><%= label_tag(:check_out, "Check Out") %></td>
+			</tr>
+			<tr>
+				<td><%= date_field(:reservation, :check_in) %></td>
+				<td><%= date_field(:reservation, :check_out) %></td>
+	
+			</tr>
+
+		</table>
+			<div class="top-margin"><%= submit_tag("Search") %></div>
+	<% end %>
+</div>
+
+
 <!-- Search Form -->
 <!-- COME BACK AND FIGURE OUT WHY FILTERS ARE NOT COMPLETE -->
 <div class="container extra-padding">
 
 	<h4>Search for properties.</h4>
 	<br/>
-	<!-- This is a ruby form -->
+
+	<!-- This is the search form -->
 	<%= form_tag("/listings/search", method: "get") do %>
 	<table style="width:60%">
-		<tr>
-			<td><%= label_tag(:country, "Country:") %></td>
-			<td><%= text_field_tag(:country) %></td>
-		</tr>
+		  
+		<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Country</label>
+
+		<select name ="country" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+		<option selected>Select Country..</option>
+		<!--Finding all countries in database  -->
+			<%country_arr= []%>
+			<%@listings.each do |l|%>
+				<%country_arr.push(l.country)%>
+			<%end%>
+		<!-- Display all countries in db as options -->
+			<%country_arr.each do |country|%>
+			<option value="#{country}"><%=country%></option>
+		<%end%>
+		</select>
+
 		<tr>
 			<td><%= label_tag(:occupant, "Number of Occupants:") %></td>
 			<td><%= text_field_tag(:occupant) %></td>
@@ -50,8 +113,6 @@
 	</table>
 		<%= submit_tag("Search") %>
 	<% end %>
-
-
 </div>
 
 <!-- Shows all the listing if there is any -->
@@ -65,7 +126,13 @@
 		<hr/>
 
 			<table style="width:100%">
-				<h4><%="#{l.title}"%></h4>
+				<col width=60%>
+				<col width=20%>
+				<col width=20%>
+				<span class="title-text"><%="#{l.title}"%></span>
+				<%if l.verification == true%>
+					✅	
+				<%end%>
 				<span class="float-right"><strong>Host:</strong>
 					<%if l.user.username != nil%>
 						<%=l.user.username%>
@@ -77,6 +144,13 @@
 					<td><strong>Description</strong><br/><%=l.description%></td>
 					<td><strong>Price</strong><br/>MYR <%=l.price%>/night</td>
 					<td><span class="float-right"><%=link_to 'View', listing_path(l.id)%></span></td>
+				</tr>
+				<tr>
+					<%if l.avatars.length>0%>
+					<td><%=image_tag l.avatars[0].url,:size => "260x180", :crop => :fill%></td>
+					<%else%>
+						<td><%=image_tag "stanleywithbone.JPG", :size => "260x180", :crop => :fill%></td>
+					<%end%>
 				</tr>		
 			</table>
 		<%end%>

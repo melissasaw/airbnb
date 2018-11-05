@@ -1,17 +1,32 @@
 
 <!-- Create Listing -->
 <div class="container align-right">
-	<%=link_to 'Home' ,root_path%>
+	<div><%=link_to 'Home' ,root_path%></div>
 </div>	
 
+
+<div class= "text-align-center profile-picture">
+	<%=image_tag @user.avatar.url if @user.avatar? %>
+</div>
 <!-- Edit User -->
 <div class ="container align-center">
 	<h2>Hello <%=@user.first_name%></h2>
+	<%if @user.customer == true%>
+		<span><strong>Customer Account</strong></span>
+	<%elsif @user.moderator == true%>
+		<span><strong>Moderator Account</strong></span>
+	<%elsif @user.superadmin == true%>
+		<span><strong>SuperAdmin Account</strong></span>
+	<%else%>
+		<span><strong>Basic Account</strong></span>
+	<%end%><br/>
 	First Name: <%=@user.first_name%><br/>
 	Last Name: <%=@user.last_name%><br/>
 	Username: <%=@user.username%><br/>
 	Registered Email: <%=@user.email%><br/>
 
+
+	<!-- Edit User -->
 	<%if @user == current_user%>
 		<span><%=link_to 'Edit' ,edit_user_path(current_user)%></span>
 		<%=link_to 'Delete', user_path(current_user), method: :delete, data: {confirm: "Are you sure you want to delete user?"} %>
@@ -42,7 +57,8 @@
 	<%@listings.each do |l|%>
 		<%if l.user.id == current_user.id%>
 			<table style="width:100%">
-			<h5><%=l.title%><br/></h5>
+			<span class ="title-text"><%=l.title%></span>
+			<%=link_to 'View', listing_path(l)%>
 			<tr>
 				<td><%=l.description%><td>
 			</tr>
@@ -57,6 +73,25 @@
 	<%end%>
 </div>
 
+<hr/>
 
+<div class = "container">
+	<h4>Your reservation</h4>
+	<div class ="container top-margin">
+		<!-- All the listing of current user -->
+		<%reservation_listing= @reservations.where(user_id: "#{@user.id}")%>
+		<!-- Display all info of reservations -->
+		<%reservation_listing.each do |reservation|%>
+			<strong><%=reservation.listing.title%></strong><br/>
+			Your journey begins on the <strong><%=reservation.check_in%></strong>
+			to <strong><%=reservation.check_out%></strong><br/>
+			<%=reservation.listing.country%><br/>
+			<%=link_to 'View', reservation_path(reservation.id, :check_in =>reservation.check_in, :check_out => reservation.check_out, :listing_id => reservation.listing.id)%>
+			<hr/>
+		<%end%>
+	</div>
+
+
+
+	
 </div>
-

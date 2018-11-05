@@ -13,13 +13,18 @@
 	<p>MYR <%=@listing.price%>/night</p>
 	</div>
 
+
 	<div class = "container thin-border-box">
 		<table style="width:100%">
+			<col width=33%>
+			<col width=33%>
+			<col width=33%>
 		<tr>
 			<td><strong>Description</strong><br/><%=@listing.description%><td>
+			<td><strong>Occupants</strong><br/><%=@listing.occupant%></td>
 		</tr>	
 		<tr>
-			<td><strong>Occupants</strong><br/><%=@listing.occupant%></td>
+			<td><strong>No. of Beds</strong><br/><%=@listing.bed_number%></td>
 			<td><strong>Rooms</strong><br/><%=@listing.rooms%></td>
 			<td><strong>Toilets</strong><br/><%=@listing.toilets%></td>
 		</tr>
@@ -31,7 +36,7 @@
 				No
 				<%end%>
 			</td>
-			<td><strong>Smoking within Premise</strong><br/>
+			<td><strong>Smoking Allowed</strong><br/>
 				<%if @listing.smoker%>
 				Yes
 				<%else%>
@@ -44,6 +49,65 @@
 	</div>
 
 
+		 <div class="profile-picture top-margin">
+		 <h4>TESTING IMAGE </h4>
+		 Total number of images in array:<%=@listing.avatars.length%><br/>
+	     <%@listing.avatars.each_with_index do |image, i|%>
+	           <%=image_tag @listing.avatars[i].url if @listing.avatars?%>
+	    <%end%>
+		</div>
+
+ 
+	<!-- Carousel -->
+	<div class="container">
+	  <h4>Listing Images</h4> 
+	  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+	    <!-- Indicators -->
+	    <ol class="carousel-indicators">
+	      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+	      <li data-target="#myCarousel" data-slide-to="1"></li>
+	      <li data-target="#myCarousel" data-slide-to="2"></li>
+	    </ol>
+
+	   <!-- Wrapper for slides -->
+	    <div class="carousel-inner">
+
+	
+	    	<%if @listing.avatars.length<=0%>
+	    	<!-- If there are no photos upload, show default image -->
+	    		 <div class="item active">
+	             <%=image_tag ("stanleywithbone.JPG")%>
+	      		</div>
+
+	      	<%else%>
+			      <div class="item active">
+			             <%=image_tag @listing.avatars[0].url if @listing.avatars?%>
+			      </div>
+
+			      <%@listing.avatars.each_with_index do |image, i|%>
+			      	<div class="item">
+
+			             <%=image_tag @listing.avatars[i].url if @listing.avatars?%>
+			      	</div>
+			      <%end%>
+			<%end%>
+
+	    </div>
+
+	    <!-- Left and right controls -->
+	    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+	      <span class="glyphicon glyphicon-chevron-left"></span>
+	      <span class="sr-only">Previous</span>
+	    </a>
+	    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+	      <span class="glyphicon glyphicon-chevron-right"></span>
+	      <span class="sr-only">Next</span>
+	    </a>
+	  </div>
+	</div>
+
+
+<!-- CONTACT HOST -->
 	<div class ="container thin-border-box top-margin">
 		<h4>Contact Host</h4>
 		<table style="width:100%">
@@ -53,11 +117,44 @@
 			<tr>
 				<td>Email: <%=@listing.user.email%></td>
 			</tr>
-		</table>
-		
+		</table>	
 	</div>
 
+<!-- VERIFICATION -->
+	<%if @listing.verification == true%>
+
+		<div class ="container top-margin thin-border-box lightblue-background align-center">
+		Verified
+		</div>
+
+	<%else%>
+
+		<%if current_user.moderator == true || current_user.superadmin == true %>
+			<div class= "container button-box float-right top-margin">
+				<%=link_to 'Verify',listings_verify_path(@listing), method: :verify, data: {confirm: "Are you sure you want to verify listing?"} %>
+			</div>
+		<%else%>
+			<div class ="container top-margin thin-border-box lightgrey-background">
+			Listing pending verification.
+			</div>
+		<%end%>
+
+	<%end%>
 
 
+<!-- BOOK  -->
+<div class ="container">
+	<%if @check_in != nil && @check_in.length > 0%>
+		<h4>Your searched dates are from <%=@check_in%> to <%=@check_out%></h4>
+		<div class ="container top-margin thin-border-box align-center">
+			<!-- Links to booking page where params carries listing_id as well -->
+		<%=link_to "Book #{@listing.title}",new_reservation_path(:listing_id => "#{@listing.id}", :check_in => "#{@check_in}",:check_out => "#{@check_out}")%>
+		</div>
+
+	<%else%>
+		<h4>To make reservations, please search for availability.</h4>
+	<%end%>
 
 </div>
+
+

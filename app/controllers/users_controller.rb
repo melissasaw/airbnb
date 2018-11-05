@@ -8,10 +8,12 @@ class UsersController < Clearance::UsersController
 		@users = User.all
 		@listings=Listing.all
 		@listings = Listing.order(:title).page params[:page]
+		@reservations = Reservation.all
 	end
 
 	def show
 		@listings=Listing.all
+		@reservations = Reservation.all
 	end
 
 	def edit
@@ -36,16 +38,17 @@ class UsersController < Clearance::UsersController
 		@users=User.all
 	end
 
-
-	# def create
-	# 	byebug
-	# 	@user = User.new(user_params)
-	# 	if @user.save
-	# 		redirect_to users_path
-	# 	else
-	# 		render 'new'
-	# 	end
-	# end
+	 def create
+    @user = user_from_params
+    # @user.errors
+    # @user.errors.full_messages
+    if @user.save
+      sign_in @user
+      redirect_back_or url_after_create
+    else
+      render template: "users/new"
+    end
+    end
 
 
     private
@@ -57,6 +60,8 @@ class UsersController < Clearance::UsersController
 	    first_name = user_params.delete(:first_name)
 	    last_name = user_params.delete(:last_name)
 	    username = user_params.delete(:username)
+	    customer = user_params.delete(:customer)
+	    avatar = user_params.delete(:avatar)
 
 	    Clearance.configuration.user_model.new(user_params).tap do |user|
 	      user.email = email
@@ -64,7 +69,11 @@ class UsersController < Clearance::UsersController
 	      user.first_name = first_name
 	      user.last_name = last_name
 	      user.username = username
+	      user.customer = customer
+	      user.avatar = avatar
+	      
 	    end
+
 	  end
 
 	 def find_user
@@ -72,7 +81,9 @@ class UsersController < Clearance::UsersController
 	end
 
 	def user_params
-		params.require(:user).permit(:first_name,:last_name,:password,:username,:email)
+
+		params.require(:user).permit(:first_name,:last_name,:password,:username,:email,:customer,:avatar)
+
 	end
 
 
