@@ -97,3 +97,6 @@ gem 'aws-sdk-rails'
 # brain tree
 gem 'braintree'
 
+# sidekiq for background jobs
+gem 'sidekiq'
+
