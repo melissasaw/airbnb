@@ -83,6 +83,12 @@
 		<!-- Display all info of reservations -->
 		<%reservation_listing.each do |reservation|%>
 			<strong><%=reservation.listing.title%></strong><br/>
+			<%if reservation.payment_confirm == "1"%>
+				<span class= "red float-right"><strong>Booking Confirmed</strong></span>
+			<%else%>
+				<span class= "float-right"><strong>Pending Payment</strong></span><br/>
+			<%end%>
+
 			Your journey begins on the <strong><%=reservation.check_in%></strong>
 			to <strong><%=reservation.check_out%></strong><br/>
 			<%=reservation.listing.country%><br/>

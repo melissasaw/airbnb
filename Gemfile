@@ -94,4 +94,6 @@ gem "mini_magick"
 gem 'carrierwave-aws'
 gem 'aws-sdk-rails'
 
+# brain tree
+gem 'braintree'
 

@@ -27,7 +27,7 @@
 	<div class = "container thin-border-box top-margin">
 		<%listing=Listing.find(@listing_id)%>
 		<h3><%=listing.title%></h2>
-		<p><%="#{listing.city}, #{listing.state}, #{listing.country}"%></p>
+		<h4><%="#{listing.city}, #{listing.state}, #{listing.country}"%></h4>
 
 		<table style="width:100%">
 			<col width=33%>
@@ -65,8 +65,8 @@
 	<div class= "container top-margin thin-border-box">
 		<!--Count the number of days between check in and check out dates  -->
 		<!-- make sure that the dates are converted to date form and do subtraction -->
-		<%days = (@check_out.to_date-@check_in.to_date).to_i%>
-		<%nights = days - 1%>
+		<%nights = (@check_out.to_date-@check_in.to_date).to_i%>
+
 		<table style="width:100%">
 			<tr>
 				<td><span class = "title-text">Total Amount</span></td>
@@ -74,7 +74,7 @@
 			</tr> 
 			<tr>
 				<td>Duration :</td>
-				<td><strong><%=days%> day(s) <%=nights%> night(s)</strong></td>
+				<td><strong><%=nights%> night(s)</strong></td>
 			</tr>
 			<tr>
 				<td>Price/Night :</td>

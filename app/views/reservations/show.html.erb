@@ -6,8 +6,15 @@
 	</div>	
 
 	<div class = "container">
-		<h2>Booking Confirmed</h2>
-		<p>on <%=@reservation.created_at%></p>
+		<%if @reservation.payment_confirm == nil || @reservation.payment_confirm == 0%>
+				<h2>Reservation Status: <span class="red">Unconfirmed</span></h2> 
+
+				<h5>Please make payment to confirm booking.</h5>
+				<h5><%=@reservation.created_at%></h5>
+		<%else%>
+			<h2>Booking Confirmed</h2>
+			<h5>on <%=@reservation.created_at%></h5>
+		<%end%>
 	</div>
 
 	<div class= "container">
@@ -27,7 +34,7 @@
 	<div class = "container thin-border-box top-margin">
 		<%listing=Listing.find(@listing_id)%>
 		<h3><%=listing.title%></h2>
-		<p><%="#{listing.city}, #{listing.state}, #{listing.country}"%></p>
+		<h5><%="#{listing.city}, #{listing.state}, #{listing.country}"%></h5>
 
 		<table style="width:100%">
 			<col width=33%>
@@ -65,8 +72,7 @@
 	<div class= "container top-margin thin-border-box">
 		<!--Count the number of days between check in and check out dates  -->
 		<!-- make sure that the dates are converted to date form and do subtraction -->
-		<%days = (@check_out.to_date-@check_in.to_date).to_i%>
-		<%nights = days - 1%>
+		<%nights = (@check_out.to_date-@check_in.to_date).to_i%>
 		<table style="width:100%">
 			<tr>
 				<td><span class = "title-text">Total Amount</span></td>
@@ -74,7 +80,7 @@
 			</tr> 
 			<tr>
 				<td>Duration :</td>
-				<td><strong><%=days%> day(s) <%=nights%> night(s)</strong></td>
+				<td><strong><%=nights%> night(s)</strong></td>
 			</tr>
 			<tr>
 				<td>Price/Night :</td>
@@ -84,10 +90,17 @@
 		</table>
 	</div>
 
+
 	<div class= "container thin-border-box top-margin align-center lightgrey-background">
 		<%= link_to 'Cancel Booking',reservation_path(@reservation), method: :delete, data: {confirm:"Are you sure you want to cancel reservation?"}%>
 
 	</div>
+
+	<div class="container thin-border-box top-margin align-center lightblue-background">
+
+		<%= link_to "Make Payment", braintree_new_path(:reservation=>{:check_in =>"#{@check_in}",:check_out =>"#{@check_out}",:user_id => "#{current_user.id}",:listing_id =>"#{@listing_id}",:price => "#{listing.price*nights}",:reservation_id =>"#{@reservation.id}"}) %>	
+	</div>
+
 
 	<div class= "container">
 		<span class = "button-box float-right"><%= link_to 'Done',user_path(current_user)%></span>

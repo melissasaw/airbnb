@@ -8,12 +8,13 @@
 <div class = "">
 	<%=link_to 'Profile Page',user_path(current_user)%><br/>
 </div>
+
 <div class="">
-	<%=link_to 'User List',url: "/users/alluser"%><br/>
+	<%=link_to 'User List',users_alluser_path%><br/>
 </div>
 
 <div class ="align-center top-margin">
-	<p><strong>Cities with our properties</strong></p>
+	<strong>Cities with our properties</strong><br/>
 	<%city_arr= []%>
 	<%@listings.each do |l|%>
 		<%=l.city%>

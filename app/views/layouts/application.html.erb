@@ -36,10 +36,13 @@
 
 
     <div class="thumbnail lightblue-background">
-      <%=image_tag current_user.avatar.url if current_user.avatar? %>
         <!-- Sign in button nested -->
+        <%if signed_in?%>
+          <%=image_tag current_user.avatar.url if current_user.avatar? %>
+        <%end%>
+
         <div class ="sign-out-button">
-          <% if signed_in? -%>
+          <% if signed_in?%>
             <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
           <% else -%>
             <%=button_to "Sign in with Google", "/auth/google_oauth2" %>
@@ -48,14 +51,17 @@
 
     </div>
 
-    <div id="flash">
-      <% flash.each do |key, value| -%>
-        <div id="flash_<%= key %>"><%=h value %></div>
-      <% end %>
-    </div>
-  </div>
-
 </div>
+    
+    <div class="container" id="flash">
+      <% flash.each do |key, value| %>
+        <div class="<%= flash_class(key) %>">
+              <%= value %>
+        </div>
+      <% end %>
+
+    </div>
+
 
 
   <%= yield %>
