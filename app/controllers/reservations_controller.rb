@@ -17,7 +17,7 @@ class ReservationsController < ApplicationController
 		host = listing.user
 		customer = current_user
 		if reservation.save
-			ReservationMailer.booking_email(customer,host,reservation.id).deliver
+			ReservationJob.perform_later(customer,host,reservation.id)
 			redirect_to user_path(current_user)
 		else
 			render 'new'
