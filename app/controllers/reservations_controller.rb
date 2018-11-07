@@ -11,9 +11,13 @@ class ReservationsController < ApplicationController
 	end
 
 	def create
-
+	
 		reservation = Reservation.new(reservation_params)
+		listing = Listing.find(reservation_params[:listing_id])
+		host = listing.user
+		customer = current_user
 		if reservation.save
+			ReservationMailer.booking_email(customer,host,reservation.id).deliver
 			redirect_to user_path(current_user)
 		else
 			render 'new'

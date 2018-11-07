@@ -7,6 +7,13 @@ class UsersController < Clearance::UsersController
 	def index
 		@users = User.all
 		@listings=Listing.all
+		city_arr= []
+		@listings.each do |l|
+		city_arr.push(l.city)
+		end 
+		@city_arr = city_arr
+
+
 		@listings = Listing.order(:title).page params[:page]
 		@reservations = Reservation.all
 	end
