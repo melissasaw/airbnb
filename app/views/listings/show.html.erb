@@ -78,12 +78,8 @@
 	      		</div>
 
 	      	<%else%>
-			      <div class="item active">
-			             <%=image_tag @listing.avatars[0].url if @listing.avatars?%>
-			      </div>
-
 			      <%@listing.avatars.each_with_index do |image, i|%>
-			      	<div class="item">
+			      	<div class="item <%= i == 0 ? 'active' : nil %>">
 
 			             <%=image_tag @listing.avatars[i].url if @listing.avatars?%>
 			      	</div>

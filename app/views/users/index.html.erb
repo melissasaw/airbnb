@@ -64,23 +64,32 @@
 	<br/>
 
 	<!-- This is the search form -->
-	<%= form_tag("/listings/search", method: "get") do %>
-	<table style="width:60%">
-		  
-		<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Country</label>
+	<%= form_tag users_path, :method => 'get' do  %>
+	<table style="width:80%">
+			<col width=40%>
+			<col width=20%>
+			<col width=20%>
+		<!-- ARRANGE THE FORM LATER -->		
+		<tr>
+			<td><%= label_tag(:title_search, "Title Search:") %></td>
+			<td><%= text_field_tag(:title_search) %></td>
+		</tr>
 
-		<select name ="country" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-		<option selected>Select Country..</option>
-		<!--Finding all countries in database  -->
-			<%country_arr= []%>
-			<%@listings.each do |l|%>
-				<%country_arr.push(l.country)%>
+		<tr>
+			<td><%= label_tag(:price, "Price/night below:") %></td>
+			<td><%= text_field_tag(:price) %></td>
+		</tr>
+
+		<tr>
+			<td><label class="my-1 mr-2" for="inlineFormCustomSelectPref">City:</label></td>
+			<td><select name ="city" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+			<option selected>Select City..</option>	
+			<!-- Display all cities in db as options -->
+			<%@city_arr.each do |c|%>
+			<option value="<%=c%>"><%=c%></option>
 			<%end%>
-		<!-- Display all countries in db as options -->
-			<%country_arr.each do |country|%>
-			<option value="#{country}"><%=country%></option>
-		<%end%>
-		</select>
+			</select></td>
+		<tr>
 
 		<tr>
 			<td><%= label_tag(:occupant, "Number of Occupants:") %></td>
@@ -88,23 +97,14 @@
 		</tr>
 
 		<tr>
-			<td>Filters: </td>
-			<td><%= check_box_tag(:pet,value = true) %>
-			<%= label_tag(:pet, "Pet Friendly") %></td>
-			<td><%= check_box_tag(:smoker,value = true) %>
-				<%= label_tag(:smoker, "Smokers") %></td>
+			<td><%= label_tag(:pet, "Pet Friendly") %></td>
+			<td><%= check_box_tag(:pet,value = true) %></td>
 		</tr>
-
 		<tr>
-			<td>Type: </td>
-			<td><%= radio_button_tag(:place_type,value = "1") %>
-			<%= label_tag(:place_type, "Entire Flat") %></td>
-			<td><%= radio_button_tag(:place_type,value = "2") %>
-			<%= label_tag(:place_type, "Private Room") %></td>
-			<td><%= radio_button_tag(:place_type,value = "3") %>
-			<%= label_tag(:place_type, "Shared Room") %></td>
-
+			<td><%= label_tag(:smoker, "Smoker") %></td>
+			<td><%= check_box_tag(:smoker,value = true) %></td>
 		</tr>
+
 	</table>
 		<%= submit_tag("Search") %>
 	<% end %>
@@ -116,6 +116,7 @@
 	<%if @listings.length >0%>
 		<!-- put this in a list in the future -->
 		<h3>Find your next holiday home</h3>
+		<h5><%=@listing_length%> properties that might suit you.</h5>
 
 		<%@listings.each_with_index do |l,i|%>
 		<hr/>
@@ -150,7 +151,9 @@
 			</table>
 		<%end%>
 	<%else%>
-	<p>Sorry. No listing at the moment!</p>
+	<div class ="container">
+		<h3>Sorry. No listing found at the moment!</h3>
+	</div>
 	<%end%>
 	<hr/>
 	<%= paginate @listings%>

@@ -100,3 +100,12 @@ gem 'braintree'
 # sidekiq for background jobs
 gem 'sidekiq'
 
+
+# Search by title pg_seach
+gem 'pg_search'
+
+gem 'pg'
+
+gem 'sqlite3'
+
+gem 'taps'

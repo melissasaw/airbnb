@@ -7,15 +7,25 @@ class UsersController < Clearance::UsersController
 	def index
 		@users = User.all
 		@listings=Listing.all
+		
+		@reservations = Reservation.all
 		city_arr= []
 		@listings.each do |l|
-		city_arr.push(l.city)
+			city_arr.push(l.city)
 		end 
 		@city_arr = city_arr
 
+		# Building filter 
 
-		@listings = Listing.order(:title).page params[:page]
-		@reservations = Reservation.all
+		@listings = Listing.search_by_title(params[:title_search]) unless params[:title_search].blank?		
+		@listings = @listings.max_price(params[:price]) unless params[:price].blank?
+		@listings = @listings.occupant(params[:occupant]) unless params[:occupant].blank?
+		@listings = @listings.pet(params[:pet]) unless params[:pet].blank?
+		@listings = @listings.smoker(params[:smoker]) unless params[:smoker].blank?
+		@listings = @listings.city(params[:city]) unless params[:city].blank?
+		@listing_length=@listings.length
+		@listings = @listings.order(:title).page params[:page]
+		
 	end
 
 	def show
