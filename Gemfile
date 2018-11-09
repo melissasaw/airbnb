@@ -111,3 +111,10 @@ gem 'sqlite3'
 gem 'taps'
 
 gem 'jquery-rails'
+
+# this is for heroku
+gem 'rails_12factor', group: :production
+
+
+
+
