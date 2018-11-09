@@ -5,7 +5,8 @@ class Listing < ApplicationRecord
 	validates :title, uniqueness: true
 	
 	include PgSearch
-  	pg_search_scope :search_by_title, :against => :title
+  	pg_search_scope :search_by_title, :against => :title 
+  	pg_search_scope :search_by_city, :against => :city
 
 	scope :max_price, -> (max_price){where("price <= ?", max_price)}
 	scope :city, -> (city) { where city: city }
@@ -15,8 +16,6 @@ class Listing < ApplicationRecord
 	scope :pet,-> (pet) { where pet: pet }
 	scope :smoker,-> (smoker) { where smoker: smoker }
 	scope :starts_with,-> (title) { where title: title }
-
-
 
 	mount_uploaders :avatars, AvatarUploader
 end

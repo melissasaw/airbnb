@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  get "users/search_input_text"
   get 'braintree/new'
   resources :passwords, controller: "passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
@@ -27,11 +27,10 @@ resources :listings
 resources :reservations
 
 post 'braintree/checkout'
-# get '/users/:id', to: 'users#show',  as: 'user'
 
-# get '/users/:id/edit', to: 'users#edit',  as: 'edit_user'
+# for ajax
 
-# get '/users/index'
+
 
 root 'users#index'
 

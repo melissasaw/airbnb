@@ -109,3 +109,5 @@ gem 'pg'
 gem 'sqlite3'
 
 gem 'taps'
+
+gem 'jquery-rails'
