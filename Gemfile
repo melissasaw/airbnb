@@ -84,7 +84,7 @@ gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 gem 'kaminari'
 
 # Image uploaded
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.3'
 
 # Helps with resizing
 gem "mini_magick"
